@@ -1,4 +1,4 @@
-package CryptoMag.Models
+package CryptoMag.model
 
 data class ConfidentialDataModel(
     val login: String,

@@ -1,22 +1,18 @@
 package CryptoMag.ui
 
-import CryptoMag.Enums.Roles
-import CryptoMag.Models.User
+import CryptoMag.enum.Roles
+import CryptoMag.model.User
 
 class MainMenu {
-
-    private val market = Market()
 
     fun menu(profile: User) {
 
         when (profile.userRole) {
-
             Roles.User -> {
-
                 print("\n1.Market \n2.Check balance \n3.Change Password \n4.LogOut \nChoose action: ")
 
                 when (readln().toInt()) {
-                    1 -> market.marketPlace(profile)
+                    1 -> Market().marketPlace(profile)
                     2 -> {
                         println(
                             "Your balance: ${profile.userInfo.wallet.wallet}$ and " +
@@ -29,15 +25,21 @@ class MainMenu {
                         profile.loginData.password = readln()
                         menu(profile)
                     }
-                    4 -> logIn()
+                    4 -> {
+                        println()
+                        logIn()
+                    }
+                    else -> {
+                        println("Incorrect")
+                        menu(profile)
+                    }
                 }
             }
             Roles.Administrator -> {
-
                 print("\n1.Market \n2.Check balance \n3.Check transactions \n4.Change password \n5.LogOut \nChoose action: ")
 
                 when (readln().toInt()) {
-                    1 -> market.marketPlace(profile)
+                    1 -> Market().marketPlace(profile)
                     2 -> {
                         println(
                             "Your balance: ${profile.userInfo.wallet.wallet}$ and " +
@@ -51,7 +53,14 @@ class MainMenu {
                         profile.loginData.password = readln()
                         menu(profile)
                     }
-                    5 -> logIn()
+                    5 -> {
+                        println()
+                        logIn()
+                    }
+                    else -> {
+                        println("Incorrect")
+                        menu(profile)
+                    }
                 }
             }
         }

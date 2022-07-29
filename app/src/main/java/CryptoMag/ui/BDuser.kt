@@ -1,12 +1,10 @@
 package CryptoMag.ui
 
-import CryptoMag.Enums.Roles
-import CryptoMag.Models.ConfidentialDataModel
-import CryptoMag.Models.UnconfidentialDataModel
-import CryptoMag.Models.User
-import CryptoMag.Models.Wallet
+import CryptoMag.enum.Roles
+import CryptoMag.listener.*
+import CryptoMag.model.*
 
-open class BDUser {
+open class BDUser : Offer {
 
     var userList: Array<User> = arrayOf(
         User(
@@ -29,4 +27,16 @@ open class BDUser {
     fun configUser(user: ConfidentialDataModel) {
         Login().loginCheck(user)
     }
+
+    companion object {
+        var offerListData: MutableList<OfferModel> = mutableListOf()
+    }
+
+    override fun saveOffer(offer: Array<OfferModel>) {
+        offerListData += offer
+    }
+
+    //override fun saveUserWallet(userWallet: User){
+
+    //}
 }

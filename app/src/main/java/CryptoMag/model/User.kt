@@ -1,6 +1,6 @@
-package CryptoMag.Models
+package CryptoMag.model
 
-import CryptoMag.Enums.Roles
+import CryptoMag.enum.Roles
 
 data class User(
     val userRole: Roles,

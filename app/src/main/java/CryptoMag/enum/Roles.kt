@@ -1,4 +1,4 @@
-package CryptoMag.Enums
+package CryptoMag.enum
 
 enum class Roles{
 

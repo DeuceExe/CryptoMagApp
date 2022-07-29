@@ -1,6 +1,6 @@
 package CryptoMag.ui
 
-import CryptoMag.Models.ConfidentialDataModel
+import CryptoMag.model.ConfidentialDataModel
 
 fun main() {
 
@@ -10,10 +10,10 @@ fun main() {
 fun logIn() {
     val bD = BDUser()
 
-    print("Enter your username: ")
+    print("Enter your Login: ")
     val logName = readln()
 
-    print("Enter your password: ")
+    print("Enter your Password: ")
     val logPassword = readln()
 
     bD.configUser(ConfidentialDataModel(logName, logPassword))

@@ -1,4 +1,4 @@
-package CryptoMag.Models
+package CryptoMag.model
 
 data class CryptoModel(
     val cryptoName: String,

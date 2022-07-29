@@ -1,30 +1,34 @@
 package CryptoMag.ui
-import CryptoMag.Enums.TypeTransaction
-import CryptoMag.Models.User
+
+import CryptoMag.model.OfferModel
+import CryptoMag.model.User
+import CryptoMag.ui.BDUser.Companion.offerListData
+import CryptoMag.listener.WalletChange
 
 
-/*open class Transaction(
-    transactionUserName: String,
-    transactionUserWallet: Double,
-    transactionUserCryptoWallet: Double,
-    transactionNumber: String
-){
-    private var number = transactionNumber
-    private val purchase = TypeTransaction.Purchase
-    private val sale = TypeTransaction.Sale
-    private val trade = TypeTransaction.Trade
-    private val marketPrice = transactionUserWallet
-    private val cryptoSell = transactionUserCryptoWallet
-    private val userName = transactionUserName
+open class Transaction {
 
-    fun transactionCheck(type: TypeTransaction, userInfo: User) : Boolean{
-        println("Transaction №$number between ${userInfo.userName} and $userName")
-        when(type){
-            purchase -> return userInfo.userWallet > marketPrice
-            sale -> return userInfo.userCryptoWallet > cryptoSell
-            trade -> return userInfo.userCryptoWallet == cryptoSell
+    fun makeTransaction(offer: OfferModel, profile: User) {
+        val market = Market()
+        println(
+            "Operation between You and ${offer.sellerName}\n" +
+                    "You buy ${offer.sellQuantity} BTC for ${offer.sellPrice}"
+        )
+        if (profile.userInfo.wallet.wallet > offer.sellPrice) {
+            profile.userInfo.wallet.cryptoWallet += offer.sellQuantity
+            profile.userInfo.wallet.wallet -= offer.sellPrice
+            offer.sellerWallet += offer.sellPrice
+            offer.sellerCryptoWallet -= offer.sellQuantity
+            offerListData.remove(offer)
+            println("Operation success")
+            market.marketPlace(profile)
+        } else {
+            println("Error")
+            market.marketPlace(profile)
         }
-        return false
     }
-}*/
+}
+
+
+
 

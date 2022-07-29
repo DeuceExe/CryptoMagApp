@@ -1,23 +1,29 @@
 package CryptoMag.ui
 
-import CryptoMag.Models.OfferModel
-import CryptoMag.Models.User
-import android.widget.ArrayAdapter
+import CryptoMag.model.OfferModel
+import CryptoMag.model.User
+import CryptoMag.ui.BDUser.Companion.offerListData
 
-interface Offer {
-    fun saveOffer(offer: Array<OfferModel>): Array<OfferModel>
-}
 
 class Market {
 
-    private var offerList: Array<OfferModel> = arrayOf()
-
     fun marketPlace(profile: User) {
+
+        fun errorMessage() {
+            println("Incorrect")
+            marketPlace(profile)
+        }
+
+        fun emptyOffer() {
+            println("Empty")
+            marketPlace(profile)
+        }
+
         print(
             "\nYour balance: \n${profile.userInfo.wallet.wallet}$" +
                     "\n${profile.userInfo.wallet.cryptoWallet} BTC\n" +
-                    "\nCrypto Market... \n1.Check currency exchange \n2.Buy \n3.Sell \n4.Back to menu " +
-                    "\nChoose action: "
+                    "\nCrypto Market... \n1.Check currency exchange \n2.Buy \n3.Sell \n4.My transactions " +
+                    "\n5.Back to menu \nChoose action: "
         )
 
         when (readln().toInt()) {
@@ -26,45 +32,76 @@ class Market {
                 marketPlace(profile)
             }
             2 -> {
-                val login = Login()
-                login.saveOffer(offerList)
-                offerList.forEachIndexed { index, it ->
-                    if (profile.userInfo.userName != it.sellerName) {
-                        println("${index}Seller: ${it.sellerName} Sell: ${it.sellQuantity}BTC Price: ${it.sellPrice}$")
-                    } else {
-                        println("empty")
-                        marketPlace(profile)
+                if (offerListData.isEmpty()) {
+                    emptyOffer()
+                } else {
+                    offerListData.forEachIndexed { index, it ->
+                        if (profile.userInfo.userName != it.sellerName) {
+                            println("${index.plus(1)} \t${it.sellerName} \tSell: ${it.sellQuantity} BTC \t${it.sellPrice}$\n")
+                        } else {
+                            emptyOffer()
+                        }
                     }
-                    print("Choose position for buying: ")
+                }
+                print("Choose position for buying ('cancel' for return): ")
+
+                offerListData.forEachIndexed { _, it ->
+                    when (val input = readln()) {
+                        "cancel" -> marketPlace(profile)
+                        else -> {
+                            offerListData[input.toInt().minus(1)] = it
+                            Transaction().makeTransaction(it, profile)
+                        }
+                    }
                 }
             }
             3 -> {
+                println()
                 print("You sell: ")
                 val quantity = readln().toDouble()
                 if (quantity <= profile.userInfo.wallet.cryptoWallet) {
                     print("For price: ")
                     val price = readln().toDouble()
                     if (price > 0) {
-                        offerList +=
-                            OfferModel(profile.userInfo.userName, quantity, price)
-                        setDataOffer(offerList)
+                        BDUser().saveOffer(
+                            arrayOf(
+                                OfferModel(
+                                    profile.userInfo.userName,
+                                    quantity,
+                                    price,
+                                    profile.userInfo.wallet.wallet,
+                                    profile.userInfo.wallet.cryptoWallet
+                                )
+                            )
+                        )
+                        profile.userInfo.wallet.cryptoWallet -= quantity
                         marketPlace(profile)
                     } else {
-                        println("Incorrect data")
-                        marketPlace(profile)
+                        errorMessage()
                     }
                 } else {
-                    println("Incorrect data")
-                    marketPlace(profile)
+                    errorMessage()
                 }
             }
-            4 -> MainMenu().menu(profile)
+            4 -> {
+                if (offerListData.isEmpty()){
+                    println("Your have no transactions")
+                    marketPlace(profile)
+                }
+                offerListData.forEach {
+                    if(profile.userInfo.userName == it.sellerName) {
+                        println("\tSeller: ${it.sellerName} \tSell:${it.sellQuantity} BTC \tPrice:${it.sellPrice}$")
+                        marketPlace(profile)
+                    }
+                }
+            }
+            5 -> {
+                MainMenu().menu(profile)
+            }
+            else -> {
+                errorMessage()
+            }
         }
-    }
-
-    private fun setDataOffer(offer: Array<OfferModel>){
-        val log = Login()
-        log.saveOffer(offerList)
     }
 
     companion object {
