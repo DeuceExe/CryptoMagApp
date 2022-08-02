@@ -5,7 +5,7 @@ import CryptoMag.model.*
 import CryptoMag.ui.BDUser.Companion.userListData
 
 
-open class Transaction {
+class Transaction {
 
     fun makeTransaction(offer: OfferModel, profile: User) {
         val market = Market()
@@ -33,9 +33,9 @@ open class Transaction {
                 )
             )
             userListData.forEachIndexed { _, it ->
-               if(it.userInfo.userName == offer.sellerName){
-                   it.userInfo.wallet.wallet += offer.sellPrice
-               }
+                if (it.userInfo.userName == offer.sellerName) {
+                    it.userInfo.wallet.wallet += offer.sellPrice
+                }
             }
             println("Operation success")
             market.marketPlace(profile)

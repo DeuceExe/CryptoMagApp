@@ -4,7 +4,7 @@ import CryptoMag.model.ConfidentialDataModel
 import CryptoMag.ui.BDUser.Companion.userListData
 import CryptoMag.model.User
 
-class Login {
+class Login: BDUser() {
 
     private lateinit var currentUser: User
 
