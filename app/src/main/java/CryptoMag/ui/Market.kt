@@ -1,7 +1,6 @@
 package CryptoMag.ui
 
-import CryptoMag.model.OfferModel
-import CryptoMag.model.User
+import CryptoMag.model.*
 import CryptoMag.ui.BDUser.Companion.offerListData
 
 
@@ -9,6 +8,7 @@ class Market {
 
     fun marketPlace(profile: User) {
 
+        val db = BDUser()
         fun errorMessage() {
             println("Incorrect")
             marketPlace(profile)
@@ -45,13 +45,13 @@ class Market {
                 }
                 print("Choose position for buying ('cancel' for return): ")
 
-                offerListData.forEachIndexed { _, it ->
-                    when (val input = readln()) {
-                        "cancel" -> marketPlace(profile)
-                        else -> {
-                            offerListData[input.toInt().minus(1)] = it
-                            Transaction().makeTransaction(it, profile)
-                        }
+                when (val input = readln()) {
+                    "cancel" -> marketPlace(profile)
+                    else -> {
+                        Transaction().makeTransaction(
+                            offerListData[input.toInt().minus(1)],
+                            profile
+                        )
                     }
                 }
             }
@@ -63,7 +63,7 @@ class Market {
                     print("For price: ")
                     val price = readln().toDouble()
                     if (price > 0) {
-                        BDUser().saveOffer(
+                        db.saveOffer(
                             arrayOf(
                                 OfferModel(
                                     profile.userInfo.userName,
@@ -75,6 +75,24 @@ class Market {
                             )
                         )
                         profile.userInfo.wallet.cryptoWallet -= quantity
+                        db.saveUserData(
+                            arrayOf(
+                                User(
+                                    profile.userRole,
+                                    ConfidentialDataModel(
+                                        profile.loginData.login,
+                                        profile.loginData.password
+                                    ),
+                                    UnconfidentialDataModel(
+                                        profile.userInfo.userName,
+                                        Wallet(
+                                            profile.userInfo.wallet.wallet,
+                                            profile.userInfo.wallet.cryptoWallet
+                                        )
+                                    )
+                                )
+                            )
+                        )
                         marketPlace(profile)
                     } else {
                         errorMessage()
@@ -84,16 +102,16 @@ class Market {
                 }
             }
             4 -> {
-                if (offerListData.isEmpty()){
+                if (offerListData.isEmpty()) {
                     println("Your have no transactions")
                     marketPlace(profile)
                 }
                 offerListData.forEach {
-                    if(profile.userInfo.userName == it.sellerName) {
-                        println("\tSeller: ${it.sellerName} \tSell:${it.sellQuantity} BTC \tPrice:${it.sellPrice}$")
-                        marketPlace(profile)
+                    if (profile.userInfo.userName == it.sellerName) {
+                        println("Seller: ${it.sellerName} \tSell:${it.sellQuantity} BTC \tPrice:${it.sellPrice}$")
                     }
                 }
+                marketPlace(profile)
             }
             5 -> {
                 MainMenu().menu(profile)

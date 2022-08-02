@@ -1,9 +1,8 @@
 package CryptoMag.ui
 
-import CryptoMag.model.OfferModel
-import CryptoMag.model.User
 import CryptoMag.ui.BDUser.Companion.offerListData
-import CryptoMag.listener.WalletChange
+import CryptoMag.model.*
+import CryptoMag.ui.BDUser.Companion.userListData
 
 
 open class Transaction {
@@ -17,9 +16,27 @@ open class Transaction {
         if (profile.userInfo.wallet.wallet > offer.sellPrice) {
             profile.userInfo.wallet.cryptoWallet += offer.sellQuantity
             profile.userInfo.wallet.wallet -= offer.sellPrice
-            offer.sellerWallet += offer.sellPrice
-            offer.sellerCryptoWallet -= offer.sellQuantity
             offerListData.remove(offer)
+            BDUser().saveUserData(
+                arrayOf(
+                    User(
+                        profile.userRole,
+                        ConfidentialDataModel(profile.loginData.login, profile.loginData.password),
+                        UnconfidentialDataModel(
+                            profile.userInfo.userName,
+                            Wallet(
+                                profile.userInfo.wallet.wallet,
+                                profile.userInfo.wallet.cryptoWallet
+                            )
+                        )
+                    )
+                )
+            )
+            userListData.forEachIndexed { _, it ->
+               if(it.userInfo.userName == offer.sellerName){
+                   it.userInfo.wallet.wallet += offer.sellPrice
+               }
+            }
             println("Operation success")
             market.marketPlace(profile)
         } else {

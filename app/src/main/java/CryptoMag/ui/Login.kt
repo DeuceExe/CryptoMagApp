@@ -1,7 +1,7 @@
 package CryptoMag.ui
 
 import CryptoMag.model.ConfidentialDataModel
-import CryptoMag.model.OfferModel
+import CryptoMag.ui.BDUser.Companion.userListData
 import CryptoMag.model.User
 
 class Login {
@@ -13,12 +13,29 @@ class Login {
         val bd = BDUser()
         var flag = false
 
-        bd.userList.forEachIndexed { _, user ->
-            if (confidentialData.login == user.loginData.login &&
-                confidentialData.password == user.loginData.password
-            ) {
-                currentUser = user
-                flag = true
+        fun logining(){
+            bd.userList.forEachIndexed { _, user ->
+                if (confidentialData.login == user.loginData.login &&
+                    confidentialData.password == user.loginData.password
+                ) {
+                    currentUser = user
+                    flag = true
+                }
+            }
+        }
+        if (userListData.isEmpty()) {
+            logining()
+        } else {
+            userListData.forEachIndexed { _, user ->
+                if (confidentialData.login == user.loginData.login &&
+                    confidentialData.password == user.loginData.password
+                ) {
+                    currentUser = user
+                    flag = true
+                }
+                if(!flag){
+                    logining()
+                }
             }
         }
 

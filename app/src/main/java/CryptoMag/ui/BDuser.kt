@@ -4,7 +4,7 @@ import CryptoMag.enum.Roles
 import CryptoMag.listener.*
 import CryptoMag.model.*
 
-open class BDUser : Offer {
+open class BDUser : Offer, UserChanges {
 
     var userList: Array<User> = arrayOf(
         User(
@@ -28,15 +28,16 @@ open class BDUser : Offer {
         Login().loginCheck(user)
     }
 
-    companion object {
-        var offerListData: MutableList<OfferModel> = mutableListOf()
-    }
-
     override fun saveOffer(offer: Array<OfferModel>) {
         offerListData += offer
     }
 
-    //override fun saveUserWallet(userWallet: User){
+    override fun saveUserData(userSaved: Array<User>) {
+        userListData += userSaved
+    }
 
-    //}
+    companion object {
+        var offerListData: MutableList<OfferModel> = mutableListOf()
+        var userListData: MutableList<User> = mutableListOf()
+    }
 }

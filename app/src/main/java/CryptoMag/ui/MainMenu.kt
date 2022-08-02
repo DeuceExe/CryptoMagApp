@@ -7,6 +7,14 @@ class MainMenu {
 
     fun menu(profile: User) {
 
+        fun checkBalance() {
+            println(
+                "Your balance: ${profile.userInfo.wallet.wallet}$ and " +
+                        "${profile.userInfo.wallet.cryptoWallet} BTC"
+            )
+            menu(profile)
+        }
+
         when (profile.userRole) {
             Roles.User -> {
                 print("\n1.Market \n2.Check balance \n3.Change Password \n4.LogOut \nChoose action: ")
@@ -14,11 +22,8 @@ class MainMenu {
                 when (readln().toInt()) {
                     1 -> Market().marketPlace(profile)
                     2 -> {
-                        println(
-                            "Your balance: ${profile.userInfo.wallet.wallet}$ and " +
-                                    "${profile.userInfo.wallet.cryptoWallet} BTC"
-                        )
-                        menu(profile)
+                        checkBalance()
+
                     }
                     3 -> {
                         print("Enter new password: ")
@@ -41,11 +46,7 @@ class MainMenu {
                 when (readln().toInt()) {
                     1 -> Market().marketPlace(profile)
                     2 -> {
-                        println(
-                            "Your balance: ${profile.userInfo.wallet.wallet}$ and " +
-                                    "${profile.userInfo.wallet.cryptoWallet} crypto"
-                        )
-                        menu(profile)
+                        checkBalance()
                     }
                     3 -> println("Developing")
                     4 -> {
