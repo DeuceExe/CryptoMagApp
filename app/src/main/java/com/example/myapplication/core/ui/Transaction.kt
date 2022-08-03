@@ -1,18 +1,16 @@
-package CryptoMag.ui
+package com.example.myapplication.core.ui
 
-import CryptoMag.ui.BDUser.Companion.offerListData
-import CryptoMag.model.*
-import CryptoMag.ui.BDUser.Companion.userListData
-
+import com.example.myapplication.core.model.*
+import com.example.myapplication.core.ui.BDUser.Companion.offerListData
+import com.example.myapplication.core.ui.BDUser.Companion.userListData
 
 class Transaction {
 
     fun makeTransaction(offer: OfferModel, profile: User) {
         val market = Market()
-        println(
-            "Operation between You and ${offer.sellerName}\n" +
-                    "You buy ${offer.sellQuantity} BTC for ${offer.sellPrice}$"
-        )
+
+        transactionScreen(offer)
+
         if (profile.userInfo.wallet.wallet > offer.sellPrice) {
             profile.userInfo.wallet.cryptoWallet += offer.sellQuantity
             profile.userInfo.wallet.wallet -= offer.sellPrice
@@ -37,12 +35,22 @@ class Transaction {
                     it.userInfo.wallet.wallet += offer.sellPrice
                 }
             }
-            println("Operation success")
-            market.marketPlace(profile)
+            goToMarket("Operation success", market, profile)
         } else {
-            println("Error")
-            market.marketPlace(profile)
+            goToMarket("Error", market, profile)
         }
+    }
+
+    private fun transactionScreen(offer: OfferModel) {
+        println(
+            "Operation between You and ${offer.sellerName}\n" +
+                    "You buy ${offer.sellQuantity} BTC for ${offer.sellPrice}$"
+        )
+    }
+
+    private fun goToMarket(message: String, market: Market, profile: User) {
+        println(message)
+        market.marketPlace(profile)
     }
 }
 

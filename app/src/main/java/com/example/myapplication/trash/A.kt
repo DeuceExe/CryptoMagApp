@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.trash
 
 class A(private var i: I) : B() {
 
@@ -17,4 +17,4 @@ class A(private var i: I) : B() {
     }
 }
 
-//иеррархия: com.example.myapplication.I -> com.example.myapplication.O -> com.example.myapplication.P -> com.example.myapplication.A <- com.example.myapplication.B. C -> com.example.myapplication.A. com.example.myapplication.A <-> MAIN
+//иеррархия: com.example.myapplication.trash.I -> com.example.myapplication.trash.O -> com.example.myapplication.trash.P -> com.example.myapplication.trash.A <- com.example.myapplication.trash.B. C -> com.example.myapplication.trash.A. com.example.myapplication.trash.A <-> MAIN

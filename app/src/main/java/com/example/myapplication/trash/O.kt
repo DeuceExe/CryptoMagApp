@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.trash
 
 open class O constructor(
     validatorName: String,
@@ -18,4 +18,4 @@ open class O constructor(
     }
 }
 
-//иеррархия: com.example.myapplication.I -> com.example.myapplication.O -> com.example.myapplication.P -> com.example.myapplication.A <- com.example.myapplication.B. C -> com.example.myapplication.A. com.example.myapplication.A <-> MAIN
+//иеррархия: com.example.myapplication.trash.I -> com.example.myapplication.trash.O -> com.example.myapplication.trash.P -> com.example.myapplication.trash.A <- com.example.myapplication.trash.B. C -> com.example.myapplication.trash.A. com.example.myapplication.trash.A <-> MAIN

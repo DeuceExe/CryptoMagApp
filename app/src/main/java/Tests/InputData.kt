@@ -1,5 +1,5 @@
 package com.example.myapplication
-/*fun com.example.myapplication.main() {
+/*fun com.example.myapplication.trash.main() {
     print("Введите первое число: ")
     val first = readLine()!!.toDouble()
     print("Введите второе число: ")
@@ -12,7 +12,7 @@ package com.example.myapplication
 
 
 /*
-fun com.example.myapplication.main(){
+fun com.example.myapplication.trash.main(){
     val first: Double = 2.4
     val second: Float = 1.7f
     val third: Int = 2

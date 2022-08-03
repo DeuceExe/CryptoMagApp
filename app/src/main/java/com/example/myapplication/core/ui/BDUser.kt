@@ -1,8 +1,9 @@
-package CryptoMag.ui
+package com.example.myapplication.core.ui
 
-import CryptoMag.enum.Roles
-import CryptoMag.listener.*
-import CryptoMag.model.*
+import com.example.myapplication.core.enum.Roles
+import com.example.myapplication.core.listener.Offer
+import com.example.myapplication.core.listener.UserChanges
+import com.example.myapplication.core.model.*
 
 open class BDUser : Offer, UserChanges {
 
@@ -25,7 +26,7 @@ open class BDUser : Offer, UserChanges {
     )
 
     fun configUser(user: ConfidentialDataModel) {
-        Login().loginCheck(user)
+        Login().initLogin(user)
     }
 
     override fun saveOffer(offer: Array<OfferModel>) {

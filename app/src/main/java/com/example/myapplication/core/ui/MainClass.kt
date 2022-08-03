@@ -1,6 +1,6 @@
-package CryptoMag.ui
+package com.example.myapplication.core.ui
 
-import CryptoMag.model.ConfidentialDataModel
+import com.example.myapplication.core.model.ConfidentialDataModel
 
 fun main() {
 

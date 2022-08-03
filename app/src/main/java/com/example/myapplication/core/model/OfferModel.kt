@@ -1,4 +1,4 @@
-package CryptoMag.model
+package com.example.myapplication.core.model
 
 data class OfferModel(
     val sellerName: String,

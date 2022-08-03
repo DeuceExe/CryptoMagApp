@@ -1,4 +1,4 @@
-package CryptoMag.model
+package com.example.myapplication.core.model
 
 data class UnconfidentialDataModel(
     val userName: String,

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.trash
 
 /**
  * Пример
@@ -134,7 +134,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 /**
  * Средняя
  *
- * Даны четыре точки на одной прямой: com.example.myapplication.A, com.example.myapplication.B, C и D.
+ * Даны четыре точки на одной прямой: com.example.myapplication.trash.A, com.example.myapplication.trash.B, C и D.
  * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.

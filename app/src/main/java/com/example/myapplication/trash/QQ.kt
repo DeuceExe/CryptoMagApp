@@ -1,6 +1,4 @@
-package com.example.myapplication
-
-import kotlin.math.*
+package com.example.myapplication.trash
 
 /**
  * Пример

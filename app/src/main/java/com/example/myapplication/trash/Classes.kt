@@ -1,4 +1,4 @@
-package com.example.agecounter
+package com.example.myapplication.trash
 
 fun main() {
     configPerson(Person("Michail", 22, 2350.0))
@@ -71,6 +71,6 @@ open class Person constructor(
     var salary = personSalary
 }
 
-//иеррархия: com.example.myapplication.I -> com.example.myapplication.O -> com.example.myapplication.P -> com.example.myapplication.A <- com.example.myapplication.B. C -> com.example.myapplication.A. com.example.myapplication.A <-> MAIN
+//иеррархия: com.example.myapplication.trash.I -> com.example.myapplication.trash.O -> com.example.myapplication.trash.P -> com.example.myapplication.trash.A <- com.example.myapplication.trash.B. C -> com.example.myapplication.trash.A. com.example.myapplication.trash.A <-> MAIN
 
 
