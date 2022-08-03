@@ -48,7 +48,10 @@ class MainMenu {
                     2 -> {
                         checkBalance()
                     }
-                    3 -> println("Developing")
+                    3 -> {
+                        println("Developing")
+                        menu(profile)
+                    }
                     4 -> {
                         print("Enter new password: ")
                         profile.loginData.password = readln()

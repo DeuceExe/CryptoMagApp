@@ -11,7 +11,7 @@ class Transaction {
         val market = Market()
         println(
             "Operation between You and ${offer.sellerName}\n" +
-                    "You buy ${offer.sellQuantity} BTC for ${offer.sellPrice}"
+                    "You buy ${offer.sellQuantity} BTC for ${offer.sellPrice}$"
         )
         if (profile.userInfo.wallet.wallet > offer.sellPrice) {
             profile.userInfo.wallet.cryptoWallet += offer.sellQuantity
